@@ -12,6 +12,10 @@ public class Graph
         vertices[position] = new List<Vector3>();
     }
 
+    public void RemoveVertex() {
+        vertices.Clear();
+    }
+
     // Добавить ребро
     public void AddEdge(Vector3 from, Vector3 to)
     {

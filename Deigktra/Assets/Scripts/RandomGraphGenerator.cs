@@ -1,4 +1,5 @@
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RandomGraphGenerator : MonoBehaviour
@@ -15,9 +16,20 @@ public class RandomGraphGenerator : MonoBehaviour
         Generate();
     }
 
+    private void Clear()
+    {
+        GameObject[] spheres = GameObject.FindGameObjectsWithTag("Sphere");
+        GameObject[] lines = GameObject.FindGameObjectsWithTag("Line");
+        foreach(GameObject sphere in spheres)
+            Destroy(sphere);
+        foreach (GameObject line in lines)
+            Destroy(line);
+    }
+
     [System.Obsolete]
     public void Generate()
     {
+        Clear();
         for (int i = 0; i < numNodes; i++)
         {
             // Создать случайную позицию для сферы
@@ -26,7 +38,13 @@ public class RandomGraphGenerator : MonoBehaviour
             // Создать сферу
             Instantiate(spherePrefab, position, Quaternion.identity);
         }
+        Invoke("GenerateGraphs", 0.01f);
 
+
+    }
+
+    private void GenerateGraphs()
+    {
         // Получить все сферы в сцене
         GameObject[] spheres = GameObject.FindGameObjectsWithTag("Sphere");
 
@@ -43,11 +61,10 @@ public class RandomGraphGenerator : MonoBehaviour
         {
             for (int j = i + 1; j < numNodes; j++)
             {
-                // Check if the spheres are not too far apart
                 if (Vector3.Distance(spheres[i].transform.position, spheres[j].transform.position) < 2 * 10)
                 {
-                    // Create a line connecting the two spheres
                     GameObject line = Instantiate(linePrefab, Vector3.zero, Quaternion.identity);
+                    line.transform.position = (spheres[i].transform.position + spheres[j].transform.position) / 2;
                     LineRenderer lineRenderer = line.GetComponent<LineRenderer>();
                     lineRenderer.SetWidth(lineWidth, lineWidth);
                     lineRenderer.SetPosition(0, spheres[i].transform.position);
@@ -55,7 +72,6 @@ public class RandomGraphGenerator : MonoBehaviour
                     graph.AddEdge(spheres[i].transform.position, spheres[j].transform.position);
                 }
             }
-
         }
     }
 

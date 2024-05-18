@@ -1,8 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Line : MonoBehaviour
 {
-    public Vector2 weightRange;
+    public int weightRange;
+    [SerializeField] private TextMeshProUGUI weight;
+
+    private void Start()
+    {
+        weightRange = Random.Range(1, 7);
+        weight.text = weightRange.ToString();
+    }
 }
