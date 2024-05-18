@@ -1,4 +1,5 @@
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -36,7 +37,11 @@ public class RandomGraphGenerator : MonoBehaviour
             Vector3 position = Random.insideUnitSphere * 5;
 
             // Создать сферу
-            Instantiate(spherePrefab, position, Quaternion.identity);
+            var sphere = Instantiate(spherePrefab, position, Quaternion.identity);
+            var text = sphere.gameObject.GetComponentInChildren<TextMeshProUGUI>();
+            // Заполнить текст буквой по алфавиту
+            text.text = ((char)('A' + i)).ToString();
+
         }
         Invoke("GenerateGraphs", 0.01f);
 

@@ -3,6 +3,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField] private RandomGraphGenerator graphGenerator;
+    [SerializeField] private Dijkstra dijkstra;
 
 
     public void GenerateGraph()
@@ -13,6 +14,6 @@ public class GameController : MonoBehaviour
 
     public void FindWay()
     {
-
+        /*dijkstra.();*/
     }
 }
