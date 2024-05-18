@@ -66,7 +66,7 @@ public class RandomGraphGenerator : MonoBehaviour
         {
             for (int j = i + 1; j < numNodes; j++)
             {
-                if (Vector3.Distance(spheres[i].transform.position, spheres[j].transform.position) < 2 * 10)
+                if (Vector3.Distance(spheres[i].transform.position, spheres[j].transform.position) < 2 * 10 && Random.value < 0.8)
                 {
                     GameObject line = Instantiate(linePrefab, Vector3.zero, Quaternion.identity);
                     line.transform.position = (spheres[i].transform.position + spheres[j].transform.position) / 2;
