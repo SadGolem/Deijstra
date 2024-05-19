@@ -70,7 +70,11 @@ public class RandomGraphGenerator : MonoBehaviour
                     lineRenderer.SetPosition(0, spheres[i].transform.position);
                     lineRenderer.SetPosition(1, spheres[j].transform.position);
                     Graph.AddEdge(spheres[i].transform.position, spheres[j].transform.position);
-                    Graph.AddGraph(spheres[i], spheres[j], line.GetComponent<Line>().weightRange);
+                    var lineWeight = line.GetComponent<Line>().weightRange;
+                    var lineWeightText = line.GetComponent<Line>().weight;
+                    lineWeight = Random.Range(1, 7);
+                    lineWeightText.text = lineWeight.ToString();
+                    Graph.AddGraph(spheres[i], spheres[j], lineWeight);
                 }
             }
         }

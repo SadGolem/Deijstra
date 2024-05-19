@@ -3,12 +3,7 @@ using UnityEngine;
 
 public class Line : MonoBehaviour
 {
-    public int weightRange;
-    [SerializeField] private TextMeshProUGUI weight;
+    [SerializeField] public int weightRange;
+    [SerializeField] public TextMeshProUGUI weight;
 
-    private void Start()
-    {
-        weightRange = Random.Range(1, 7);
-        weight.text = weightRange.ToString();
-    }
 }

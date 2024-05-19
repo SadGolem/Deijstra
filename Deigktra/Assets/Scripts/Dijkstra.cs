@@ -87,7 +87,7 @@ public class Dijkstra : MonoBehaviour
 
         foreach (GameObject sphere in graph.Keys)
         {
-            distances[sphere] = graph.; // Установка начального расстояния до всех точек в бесконечность
+            distances[sphere] = Mathf.Infinity; // Установка начального расстояния до всех точек в бесконечность
             predecessors[sphere] = null; // Установка предшественников для всех точек на null
         }
 
