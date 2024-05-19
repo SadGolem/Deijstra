@@ -9,11 +9,16 @@ public class GameController : MonoBehaviour
     public void GenerateGraph()
     {
         graphGenerator.Generate();
+        Invoke("Initial", 0.01f);
     }
 
+    private void Initial()
+    {
+        dijkstra.InitialGraph();
+    }
 
     public void FindWay()
     {
-        /*dijkstra.();*/
+        dijkstra.FindPath();
     }
 }

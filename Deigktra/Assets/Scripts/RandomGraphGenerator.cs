@@ -1,6 +1,4 @@
-using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class RandomGraphGenerator : MonoBehaviour
@@ -21,7 +19,7 @@ public class RandomGraphGenerator : MonoBehaviour
     {
         GameObject[] spheres = GameObject.FindGameObjectsWithTag("Sphere");
         GameObject[] lines = GameObject.FindGameObjectsWithTag("Line");
-        foreach(GameObject sphere in spheres)
+        foreach (GameObject sphere in spheres)
             Destroy(sphere);
         foreach (GameObject line in lines)
             Destroy(line);
@@ -53,13 +51,10 @@ public class RandomGraphGenerator : MonoBehaviour
         // Получить все сферы в сцене
         GameObject[] spheres = GameObject.FindGameObjectsWithTag("Sphere");
 
-        // Создать граф
-        Graph graph = new Graph();
-
         // Добавить сферы в граф
         foreach (GameObject sphere in spheres)
         {
-            graph.AddVertex(sphere.transform.position);
+            Graph.AddVertex(sphere.transform.position);
         }
 
         for (int i = 0; i < numNodes; i++)
@@ -74,10 +69,10 @@ public class RandomGraphGenerator : MonoBehaviour
                     lineRenderer.SetWidth(lineWidth, lineWidth);
                     lineRenderer.SetPosition(0, spheres[i].transform.position);
                     lineRenderer.SetPosition(1, spheres[j].transform.position);
-                    graph.AddEdge(spheres[i].transform.position, spheres[j].transform.position);
+                    Graph.AddEdge(spheres[i].transform.position, spheres[j].transform.position);
+                    Graph.AddGraph(spheres[i], spheres[j], line.GetComponent<Line>().weightRange);
                 }
             }
         }
     }
-
 }

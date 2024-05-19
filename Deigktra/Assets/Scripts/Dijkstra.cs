@@ -1,11 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
-using Utils;
 
 public class Dijkstra : MonoBehaviour
 {
@@ -22,28 +18,9 @@ public class Dijkstra : MonoBehaviour
     // Словарь предшественников для восстановления кратчайшего пути
     private Dictionary<GameObject, GameObject> predecessors;
 
-    // Инициализация графа
-    void Start()
+    private void Start()
     {
-        graph = new Dictionary<GameObject, List<(GameObject, float)>>();
-        foreach (GameObject sphere in GameObject.FindGameObjectsWithTag("Sphere"))
-        {
-            graph[sphere] = new List<(GameObject, float)>();
-        }
-
-        // Создание ребер графа на основе расстояний между сферами
-        foreach (GameObject sphere1 in graph.Keys)
-        {
-            foreach (GameObject sphere2 in graph.Keys)
-            {
-                if (sphere1 != sphere2)
-                {
-                    float distance = Vector3.Distance(sphere1.transform.position, sphere2.transform.position);
-                    graph[sphere1].Add((sphere2, distance));
-                    graph[sphere2].Add((sphere1, distance));
-                }
-            }
-        }
+        Invoke("InitialGraph", 0.02f);
     }
 
     // Обработка щелчка мыши по сфере
@@ -70,17 +47,40 @@ public class Dijkstra : MonoBehaviour
                         endSphere = sphere;
                         var s = sphere.GetComponentInChildren<TextMeshProUGUI>();
                         Debug.Log("Выбрана конечная точка: " + s.text);
-                        FindPath();
                     }
                 }
             }
         }
     }
 
+    //Инициализация
+    public void InitialGraph()
+    {
+        graph = new Dictionary<GameObject, List<(GameObject, float)>>();
+        foreach (var line in Graph.lines)
+        {
+            var sphere1 = line.Key.Keys.First();
+            var sphere2 = line.Key.Values.First();
+            var distance = line.Value;
+
+            if (!graph.ContainsKey(sphere1))
+            {
+                graph[sphere1] = new List<(GameObject, float)>();
+            }
+            if (!graph.ContainsKey(sphere2))
+            {
+                graph[sphere2] = new List<(GameObject, float)>();
+            }
+
+            graph[sphere1].Add((sphere2, distance));
+            graph[sphere2].Add((sphere1, distance));
+        }
+    }
 
     // Поиск кратчайшего пути с помощью алгоритма Дейкстры
-    private void FindPath()
+    public void FindPath()
     {
+        if (endSphere == null) return;
         // Инициализация словарей
         distances = new Dictionary<GameObject, float>();
         predecessors = new Dictionary<GameObject, GameObject>();
