@@ -53,7 +53,7 @@ public class Dijkstra : MonoBehaviour
         }
     }
 
-    //Инициализация
+    // Инициализация
     public void InitialGraph()
     {
         graph = new Dictionary<GameObject, List<(GameObject, float)>>();
@@ -122,7 +122,6 @@ public class Dijkstra : MonoBehaviour
                 // Рассчитаем новое расстояние до соседа
                 float newDistance = distances[current] + weight;
 
-                // Если новое расстояние меньше, чем предыдущее
                 if (newDistance < distances[neighbor])
                 {
                     // Обновление расстояния и предшественника
@@ -131,7 +130,6 @@ public class Dijkstra : MonoBehaviour
                 }
             }
 
-            // Удаление текущей точки из списка необработанных
             unvisited.Remove(current);
         }
 
@@ -159,7 +157,6 @@ public class Dijkstra : MonoBehaviour
         }
         else
         {
-            // Если пути не существует
             Debug.Log("Пути между выбранными точками не существует");
         }
     }
