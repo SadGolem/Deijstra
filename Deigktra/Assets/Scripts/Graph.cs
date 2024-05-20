@@ -27,6 +27,12 @@ public static class Graph
         vertices.Clear();
     }
 
+    public static void RemoveLines()
+    {
+        if (lines != null)
+            lines.Clear();
+    }
+
     // Добавить ребро
     public static void AddEdge(Vector3 from, Vector3 to)
     {

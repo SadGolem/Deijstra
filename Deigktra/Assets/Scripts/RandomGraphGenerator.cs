@@ -48,6 +48,7 @@ public class RandomGraphGenerator : MonoBehaviour
 
     private void GenerateGraphs()
     {
+        Graph.RemoveLines();
         // Получить все сферы в сцене
         GameObject[] spheres = GameObject.FindGameObjectsWithTag("Sphere");
 
